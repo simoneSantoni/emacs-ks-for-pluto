@@ -16,6 +16,10 @@ No build step — this is plain JS/CSS loaded directly by Firefox.
 - Test against a running Pluto server at `http://localhost:*`, `http://127.0.0.1:*`, or `https://localhost:*` (see `manifest.json` match patterns).
 - After editing `background.js`, `content.js`, `emacs-mode.js`, or `manifest.json`, click "Reload" on the add-on card and hard-reload the Pluto tab.
 - Package for distribution with `store/build-zip.sh` (produces the upload ZIP; sign via AMO / `web-ext`).
+- Mozilla's `web-ext` (not vendored — `npx web-ext …` or install globally) reads `web-ext-config.mjs`, which excludes dev-only files (`store/**`, docs, `*.zip`/`*.xpi`) from lint/build output:
+  - `npx web-ext lint` — validate the add-on the way AMO's automated review does; run before any submission.
+  - `npx web-ext run` — launch Firefox with the add-on side-loaded and auto-reloading.
+  - `npx web-ext build` / `web-ext sign` — produce/sign an `.xpi` (alternative to `store/build-zip.sh`).
 
 ## Firefox specifics
 
@@ -48,4 +52,8 @@ state machine. Instead:
 
 ## State flow
 
+The **toolbar popup** (`popup/`) is the only user-facing control: a single checkbox that reads state via a `getState` message on open and sends `setState` on toggle. It never touches `storage.local` directly — background owns that.
+
 Popup or background → `storage.local` → broadcast `emacsStateChanged` to all tabs → `content.js` injects/enables or disables → dispatches window event → page-world `emacs-mode.js` attaches to or detaches from CodeMirror views.
+
+Note the asymmetry: on a `setState` broadcast `content.js` both injects `emacs-mode.js` *and* dispatches the enable event, but on first page load (`boot`) it only injects if already enabled — the engine self-attaches on inject. `emacsEnabled` defaults to `true` (set on `onInstalled`; absence reads as enabled).
