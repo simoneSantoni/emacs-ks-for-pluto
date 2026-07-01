@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  Project icon for emacs-ks-for-pluto.
+  A rounded-square badge in Emacs purple with a stylised "M-x" glyph over
+  three dots evoking Julia's brand colours (blue / red / green / purple).
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8a63c9"/>
+      <stop offset="1" stop-color="#6a4aa0"/>
+    </linearGradient>
+  </defs>
+  <rect x="6" y="6" width="116" height="116" rx="24" ry="24" fill="url(#bg)"/>
+  <text x="64" y="62" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',monospace"
+        font-size="40" font-weight="700" fill="#ffffff">M-x</text>
+  <!-- Julia dots -->
+  <circle cx="40" cy="92" r="9" fill="#4063D8"/>
+  <circle cx="64" cy="92" r="9" fill="#CB3C33"/>
+  <circle cx="88" cy="92" r="9" fill="#389826"/>
+</svg>
