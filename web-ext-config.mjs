@@ -3,6 +3,7 @@
 export default {
   ignoreFiles: [
     'store/**',
+    'test/**',
     '*.zip',
     '*.xpi',
     'web-ext-artifacts/**',

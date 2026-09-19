@@ -6,8 +6,13 @@
 // `browser` (falling back to `chrome` on Chromium-family browsers).
 const api = (typeof browser !== 'undefined') ? browser : chrome;
 
-api.runtime.onInstalled.addListener(() => {
-  api.storage.local.set({ emacsEnabled: true });
+// Seed the default on first install only. `onInstalled` also fires on updates
+// and add-on reloads, where rewriting the key would undo the user's choice.
+api.runtime.onInstalled.addListener((details) => {
+  if (details && details.reason !== 'install') return;
+  api.storage.local.get('emacsEnabled').then((result) => {
+    if (result.emacsEnabled === undefined) api.storage.local.set({ emacsEnabled: true });
+  });
 });
 
 api.runtime.onMessage.addListener((message, sender, sendResponse) => {

@@ -32,6 +32,9 @@
   // Listen for state changes from the background worker / popup.
   api.runtime.onMessage.addListener((msg) => {
     if (msg.type === 'emacsStateChanged') {
+      // The broadcast reaches every tab that matches the manifest patterns,
+      // i.e. any localhost dev server — only Pluto pages get the engine.
+      if (!isPlutoPage()) return;
       if (msg.enabled) {
         injectEmacsMode();
         enableEmacsMode();
@@ -61,11 +64,16 @@
   }
 
   // Fallback observer: if Pluto loads asynchronously, detect it appearing.
-  const observer = new MutationObserver(() => {
-    if (isPlutoPage()) {
-      observer.disconnect();
-      boot();
-    }
-  });
-  observer.observe(document.documentElement, { childList: true, subtree: true });
+  // Pluto ships <pluto-editor> in its static HTML, so this rarely matters; give
+  // up after a while rather than watching unrelated localhost pages forever.
+  if (!isPlutoPage()) {
+    const observer = new MutationObserver(() => {
+      if (isPlutoPage()) {
+        observer.disconnect();
+        boot();
+      }
+    });
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+    setTimeout(() => observer.disconnect(), 30000);
+  }
 })();

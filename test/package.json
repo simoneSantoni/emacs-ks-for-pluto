@@ -1,0 +1,14 @@
+{
+  "name": "emacs-ks-for-pluto-tests",
+  "private": true,
+  "type": "module",
+  "description": "Dev-only test harness; not part of the packaged add-on.",
+  "scripts": {
+    "test": "node --test --test-concurrency=1 \"unit/*.test.mjs\" \"e2e/*.test.mjs\"",
+    "test:unit": "node --test \"unit/*.test.mjs\"",
+    "test:e2e": "node --test --test-concurrency=1 \"e2e/*.test.mjs\""
+  },
+  "devDependencies": {
+    "playwright": "^1.50.0"
+  }
+}

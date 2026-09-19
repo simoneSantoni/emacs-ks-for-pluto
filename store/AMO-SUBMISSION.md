@@ -12,6 +12,11 @@ Working notes for publishing this add-on to addons.mozilla.org (AMO) as a
 
 ## Done so far
 
+- **Tests** — `cd test && npm test`: unit tests for `background.js` / `content.js`
+  and a Playwright end-to-end suite that drives the engine in Firefox against a
+  real Pluto server. Green on Pluto 1.0.3 and 0.20.21 (2026-09-20). Re-run before
+  every upload; a Pluto release that changes CodeMirror internals shows up here first.
+
 - **Lint** — `npx web-ext lint` → 0 errors, 0 notices, **1 warning**.
   - Warning `KEY_FIREFOX_ANDROID_UNSUPPORTED_BY_MIN_VERSION`: `strict_min_version`
     is `140.0`, but `browser_specific_settings.gecko.data_collection_permissions`
@@ -68,8 +73,8 @@ a modeless Emacs keymap on top of them, so ordinary keys still self-insert
 and only Emacs chords are intercepted.
 
 An "Emacs" badge appears at the bottom-left of the page when the add-on is
-active. Toggle it on or off from the toolbar popup (reload the Pluto tab
-after toggling).
+active. Toggle it on or off from the toolbar popup; open Pluto tabs follow
+immediately.
 
 SUPPORTED BINDINGS
 
@@ -77,7 +82,7 @@ Movement
 • C-f / C-b, M-f / M-b — char / word motion
 • C-n / C-p, C-a / C-e — line motion, line start / end
 • C-v / M-v, M-< / M-> — page and buffer motion
-• M-g g — goto line
+• M-g g — goto line, M-m back to indentation, C-l recenter
 
 Region, kill & yank
 • C-Space sets the mark; movement extends the region
@@ -89,24 +94,26 @@ Region, kill & yank
 Editing & case
 • C-o open line, C-j newline, C-t transpose
 • M-u / M-l / M-c upcase / downcase / capitalize word
-• C-/ , C-_ , C-x u undo
+• M-; toggle comment
+• C-/ , C-_ , C-x u undo, C-? redo
 
 Search
-• C-s / C-r incremental search forward / backward
+• C-s / C-r incremental search forward / backward (wraps, smart case)
 
 Prefix arguments
 • C-u universal argument, M-<digit> numeric argument
 
 Cell operations
-• C-c C-c or C-x C-s evaluate the current cell
+• C-c C-c evaluate the current cell, C-x C-s submit all changed cells
 • C-c C-n / C-c C-p focus next / previous cell
 • C-c C-a / C-c C-o add a cell below / above
 • C-c C-k delete the current cell
 
 NOTES
 
-• A few chords are reserved by Firefox itself (e.g. C-w may close a tab) and
-  cannot always be intercepted by an extension.
+• Firefox reserves C-n, C-w, C-t (and C-q on Linux); those never reach the
+  page, so use the arrow keys / M-w instead.
+• Works with Pluto 1.x and 0.20.x.
 • The add-on runs only on Pluto notebooks served from localhost / 127.0.0.1.
 • No data is collected and no network requests are made.
 
@@ -151,7 +158,7 @@ Quickest setup:
      C-a / C-e (line start/end), C-Space then C-f (region), C-k (kill line),
      C-y (yank), C-s (incremental search).
   4. Toggle the add-on off from the toolbar popup; the bindings stop and the
-     badge disappears after reloading the tab.
+     badge disappears immediately (no reload needed).
 
 No account or credentials are needed.
 
