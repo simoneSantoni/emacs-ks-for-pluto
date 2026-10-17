@@ -14,8 +14,11 @@ Working notes for publishing this add-on to addons.mozilla.org (AMO) as a
 
 - **Tests** — `cd test && npm test`: unit tests for `background.js` / `content.js`
   and a Playwright end-to-end suite that drives the engine in Firefox against a
-  real Pluto server. Green on Pluto 1.0.3 and 0.20.21 (2026-09-20). Re-run before
-  every upload; a Pluto release that changes CodeMirror internals shows up here first.
+  real Pluto server. Green on Pluto 1.0.3 and 0.20.21 (2026-09-20); re-run
+  2026-10-17 before building the upload ZIP: 7/7 unit, 32 pass / 1 skipped e2e
+  (the skip is the real-completion-popup test, expected under Julia 1.13). Re-run
+  before every upload; a Pluto release that changes CodeMirror internals shows up
+  here first.
 
 - **Lint** — `npx web-ext lint` → 0 errors, 0 notices, **1 warning**.
   - Warning `KEY_FIREFOX_ANDROID_UNSUPPORTED_BY_MIN_VERSION`: `strict_min_version`
@@ -23,30 +26,47 @@ Working notes for publishing this add-on to addons.mozilla.org (AMO) as a
     is only supported on Firefox **for Android** 142+. Desktop-only, non-blocking.
     Bump `manifest.json` `strict_min_version` to `142.0` to clear it (open decision).
 - **Build** — `./store/build-zip.sh` → **`emacs-ks-for-pluto-1.0.0.zip`** in repo
-  root (gitignored). 13 files, ~45 KB, dev files excluded. This is the upload
-  artifact. Rebuild after any source change (and bump `version` in `manifest.json`
+  root (gitignored). 14 files, ~30 KB, dev files excluded. Rebuilt 2026-10-17 from
+  commit `a85c47f` (clean tree). This is the upload artifact. Rebuild after any source change (and bump `version` in `manifest.json`
   before re-uploading — AMO rejects duplicate versions).
 
-## Remaining steps
+- **Screenshots** — `store/screenshots/1-region-and-badge.png` (active region +
+  top-right badge) and `store/screenshots/2-isearch.png` (incremental-search bar),
+  1280×800 PNG, captured 2026-10-17 against a real Pluto with the engine injected
+  (same plumbing as the e2e suite). Upload both in step 5.
 
-1. Sign in at https://addons.mozilla.org → Developer Hub (Firefox Account).
-2. *Submit a New Add-on* → choose **"On this site"** (listed) → upload the ZIP.
-3. Paste the **listing copy** (below) into the form fields.
-4. Paste the **reviewer notes** (below) into "Notes for Reviewers" — this pre-empts
-   the two likely snags: reviewers can't run a Pluto server, and the page-world
-   script injection can trip a false "remote code" flag.
-5. Upload **at least one screenshot** (required for listed). Best: a focused Pluto
-   cell with the top-right "Emacs" badge visible; optional second: the popup toggle.
-6. Select license **MIT**, set support email, submit for review.
+## Submitted — 2026-10-17
 
-## Open items needing the user
+Version **1.0.0** was submitted as a listed add-on on 2026-10-17 (driven through
+the Developer Hub in the user's Chrome session). Status: **awaiting review**;
+AMO emails when it is published (up to 24 h, longer if picked for manual review).
 
-- [ ] Confirm the GitHub URL used in the copy: `https://github.com/simoneSantoni/emacs-ks-for-pluto`
-      (inferred from git user; README link is a bare placeholder).
-- [ ] Provide/capture screenshot(s). Can be captured by driving Firefox against a
-      local Pluto server (`import Pluto; Pluto.run()`), e.g. via the browser tooling.
-- [ ] Decide whether to bump `strict_min_version` 140 → 142 to clear the lint warning.
-- [ ] Confirm AMO support email (defaults to Firefox Account email).
+- Listing / dashboard: https://addons.mozilla.org/en-US/developers/addon/emacs-keybindings-for-pluto/edit
+- Public URL once approved: https://addons.mozilla.org/firefox/addon/emacs-keybindings-for-pluto/
+- Upload validation: 0 errors, 1 warning (the `strict_min_version` / Android note).
+- Fields as submitted: name, summary and description from "Listing copy" below;
+  category **Web Development** (AMO has no "Developer Tools" category);
+  license **MIT**; support website `https://github.com/simoneSantoni/emacs-ks-for-pluto/issues`;
+  **no support email** (add one under Edit → Describe if wanted); no privacy
+  policy (nothing is collected); not experimental; "uses build tools" = No;
+  reviewer notes from "Notes to reviewer" below plus a "no build step" line.
+  Developer display name set to "Simone Santoni".
+- Images: both `store/screenshots/*.png` uploaded with captions, and a
+  **custom listing icon** uploaded from the new `icons/icon.svg` (the official
+  GNU Emacs "E" and disc from `icons/emacs.svg`, with Pluto.jl's three
+  Julia-coloured dots stacked beside it; GPL v3+ as a derivative of that logo —
+  see the licence note in `README.md`). The 1.0.0 package still ships the *previous*
+  toolbar icon PNGs — the regenerated `icons/icon{16,32,48,128}.png` go out
+  with the next version bump (`rsvg-convert -w N -h N icons/icon.svg -o icons/iconN.png`).
+
+### Next upload
+
+Bump `version` in `manifest.json`, `./store/build-zip.sh`, then Developer Hub →
+*Upload New Version* (or generate API keys at
+https://addons.mozilla.org/developers/addon/api/key/ and use
+`npx web-ext sign --channel=listed`). Note: Chrome's extension-mode automation
+cannot use native file choosers; the upload was done by injecting the file into
+the `<input type=file>` via a `DataTransfer` from page JS.
 
 ---
 
@@ -123,7 +143,7 @@ Open source (MIT). Source: https://github.com/simoneSantoni/emacs-ks-for-pluto
 ### License
 MIT (already in `LICENSE`). The only third-party asset is `icons/emacs.svg`,
 the official GNU Emacs logo (FSF, GPL v3+, notice kept inside the file),
-loaded by `content.css` for the on-page badge.
+loaded by `content.css` for the on-page badge and reused in the add-on icon.
 
 ---
 

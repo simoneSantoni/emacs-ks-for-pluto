@@ -142,4 +142,6 @@ MIT — see [`LICENSE`](LICENSE).
 `icons/emacs.svg` is the official GNU Emacs logo by Nicolas Petton, copyright
 Free Software Foundation, Inc., distributed with GNU Emacs under the GNU GPL
 v3 or later (the notice is kept inside the file). It is used unmodified for
-the on-page badge only.
+the on-page badge, and its "E" and disc are reused in the add-on icon
+(`icons/icon.svg` and the `icons/icon*.png` rendered from it, which are
+therefore GPL v3+ as well, together with Pluto.jl's three Julia-coloured dots).
