@@ -13,7 +13,7 @@ architecture (background event page, isolated content script, page-world engine)
    and select the `manifest.json` in the repo root.
 3. Open a Pluto notebook at `http://localhost:*`, `http://127.0.0.1:*`, or
    `https://localhost:*`. An **Emacs** badge (with the GNU Emacs logo) appears at
-   the bottom-left, just above Pluto's footer, when the add-on is active.
+   the top-right, in Pluto's header bar, when the add-on is active.
 4. Toggle on/off from the toolbar popup; open Pluto tabs follow immediately.
 
 Works with both current Pluto (1.x) and the 0.20 series — the two bundle

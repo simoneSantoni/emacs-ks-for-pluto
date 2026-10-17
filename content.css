@@ -1,11 +1,13 @@
-/* ---------- Emacs badge (bottom-left, GNU-ish purple) ----------
-   Sits above Pluto's footer (min-height 3.5rem + 1rem padding), whose
-   left-aligned "settings" button it would otherwise cover. The echo area and
-   the minibuffer bar share the same baseline. */
+/* ---------- Emacs badge (top-right, GNU-ish purple) ----------
+   Vertically centred in Pluto's sticky header band (min-height 60px), at the
+   viewport's right edge. Pluto's nav is max-width 1000px and centred, so on
+   ordinary window widths nothing sits under the badge; on narrow windows it
+   may overlap the nav's right end. The echo area and the minibuffer bar stay
+   at the bottom, above Pluto's footer. */
 .pluto-emacs-badge {
   position: fixed;
-  bottom: 76px;
-  left: 12px;
+  top: 17px;
+  right: 24px;
   z-index: 99999;
   display: flex;
   align-items: center;
@@ -34,11 +36,13 @@
   background: url("icons/emacs.svg") center / contain no-repeat;
 }
 
-/* ---------- Echo area (prefix keys, messages) ---------- */
+/* ---------- Echo area (prefix keys, messages) ----------
+   Bottom-left, above Pluto's footer (min-height 3.5rem + 1rem padding), whose
+   left-aligned "settings" button it would otherwise cover. */
 .pluto-emacs-echo {
   position: fixed;
   bottom: 76px;
-  left: 112px;
+  left: 12px;
   z-index: 99999;
   padding: 4px 12px;
   border-radius: 4px;
@@ -62,7 +66,7 @@
 .pluto-emacs-isearch {
   position: fixed;
   bottom: 76px;
-  left: 112px;
+  left: 12px;
   right: 12px;
   z-index: 100000;
   display: flex;

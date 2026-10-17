@@ -36,7 +36,7 @@ Working notes for publishing this add-on to addons.mozilla.org (AMO) as a
    the two likely snags: reviewers can't run a Pluto server, and the page-world
    script injection can trip a false "remote code" flag.
 5. Upload **at least one screenshot** (required for listed). Best: a focused Pluto
-   cell with the bottom-left "Emacs" badge visible; optional second: the popup toggle.
+   cell with the top-right "Emacs" badge visible; optional second: the popup toggle.
 6. Select license **MIT**, set support email, submit for review.
 
 ## Open items needing the user
@@ -72,7 +72,7 @@ notebook editor. Pluto's cells are CodeMirror 6 editors; this add-on layers
 a modeless Emacs keymap on top of them, so ordinary keys still self-insert
 and only Emacs chords are intercepted.
 
-An "Emacs" badge appears at the bottom-left of the page when the add-on is
+An "Emacs" badge appears at the top-right of the page when the add-on is
 active. Toggle it on or off from the toolbar popup; open Pluto tabs follow
 immediately.
 
@@ -157,7 +157,7 @@ Quickest setup:
   1. Install Julia, then in the Julia REPL:
        import Pkg; Pkg.add("Pluto"); import Pluto; Pluto.run()
   2. Pluto opens a notebook at http://localhost:1234 (or similar).
-  3. The "Emacs" badge appears bottom-left, above Pluto's footer. Click into
+  3. The "Emacs" badge appears top-right, in Pluto's header bar. Click into
      a cell and try, e.g.,
      C-a / C-e (line start/end), C-Space then C-f (region), C-k (kill line),
      C-y (yank), C-s (incremental search).
