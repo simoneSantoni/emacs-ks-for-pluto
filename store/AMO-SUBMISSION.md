@@ -121,7 +121,9 @@ Open source (MIT). Source: https://github.com/simoneSantoni/emacs-ks-for-pluto
 ```
 
 ### License
-MIT (already in `LICENSE`).
+MIT (already in `LICENSE`). The only third-party asset is `icons/emacs.svg`,
+the official GNU Emacs logo (FSF, GPL v3+, notice kept inside the file),
+loaded by `content.css` for the on-page badge.
 
 ---
 
@@ -146,7 +148,8 @@ is bundled inside the add-on and loaded via runtime.getURL(). Page-world
 injection is required because CodeMirror 6's EditorView instances are only
 reachable from the page's own JavaScript context, not from an isolated
 content script. No code is fetched from any network source; the add-on
-makes no network requests at all.
+makes no network requests at all. icons/emacs.svg is also listed in
+web_accessible_resources: content.css shows it in the on-page badge.
 
 HOW TO TEST
 This add-on activates only on a running Pluto server, which requires Julia.
@@ -154,7 +157,8 @@ Quickest setup:
   1. Install Julia, then in the Julia REPL:
        import Pkg; Pkg.add("Pluto"); import Pluto; Pluto.run()
   2. Pluto opens a notebook at http://localhost:1234 (or similar).
-  3. The "Emacs" badge appears bottom-left. Click into a cell and try, e.g.,
+  3. The "Emacs" badge appears bottom-left, above Pluto's footer. Click into
+     a cell and try, e.g.,
      C-a / C-e (line start/end), C-Space then C-f (region), C-k (kill line),
      C-y (yank), C-s (incremental search).
   4. Toggle the add-on off from the toolbar popup; the bindings stop and the

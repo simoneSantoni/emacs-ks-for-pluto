@@ -12,8 +12,8 @@ architecture (background event page, isolated content script, page-world engine)
 2. Open `about:debugging#/runtime/this-firefox`, click **Load Temporary Add-on…**,
    and select the `manifest.json` in the repo root.
 3. Open a Pluto notebook at `http://localhost:*`, `http://127.0.0.1:*`, or
-   `https://localhost:*`. An **Emacs** badge appears at the bottom-left when the
-   add-on is active.
+   `https://localhost:*`. An **Emacs** badge (with the GNU Emacs logo) appears at
+   the bottom-left, just above Pluto's footer, when the add-on is active.
 4. Toggle on/off from the toolbar popup; open Pluto tabs follow immediately.
 
 Works with both current Pluto (1.x) and the 0.20 series — the two bundle
@@ -138,3 +138,8 @@ state flows between them.
 ## License
 
 MIT — see [`LICENSE`](LICENSE).
+
+`icons/emacs.svg` is the official GNU Emacs logo by Nicolas Petton, copyright
+Free Software Foundation, Inc., distributed with GNU Emacs under the GNU GPL
+v3 or later (the notice is kept inside the file). It is used unmodified for
+the on-page badge only.

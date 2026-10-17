@@ -20,6 +20,7 @@ zip -q -r "$OUT" \
   icons/icon32.png \
   icons/icon48.png \
   icons/icon128.png \
+  icons/emacs.svg \
   popup/popup.html \
   popup/popup.css \
   popup/popup.js \

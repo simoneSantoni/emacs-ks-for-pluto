@@ -56,7 +56,8 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "emacs-mode.js"
+        "emacs-mode.js",
+        "icons/emacs.svg"
       ],
       "matches": [
         "http://localhost/*",
